@@ -1,0 +1,150 @@
+/* Define the jumping animation */
+@keyframes jump {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(
+      -6px
+    ); /* Adjust the value to control the jump height */
+  }
+}
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Lora, sans-serif;
+  color: #333;
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0;
+  min-height: 100%;
+  background-color: #fff;
+  line-height: 20px;
+}
+
+button {
+  outline: none !important;
+  border: none;
+  background: 0 0;
+}
+button:hover {
+  cursor: pointer;
+}
+ul,
+li {
+  margin: 0;
+  list-style-type: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+p {
+  font-family: Poppins-Regular;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #666;
+  margin: 0;
+}
+a:focus {
+  outline: none !important;
+}
+a {
+  text-decoration: none;
+  cursor: pointer;
+  margin: 0;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #6a7dfe;
+}
+
+/* Apply the animation on hover */
+
+.year-txt:hover,
+#icons:hover,
+a:hover {
+  /* color-change */
+
+  animation: gradient-animation 10s ease-in-out;
+  background: -webkit-linear-gradient(left, #21d4fd, #b721ff);
+  background: -o-linear-gradient(left, #21d4fd, #b721ff);
+  background: -moz-linear-gradient(left, #21d4fd, #b721ff);
+  background: linear-gradient(left, #21d4fd, #b721ff);
+  -webkit-background-clip: text;
+  color: transparent;
+  background-clip: text;
+}
+
+.box99 {
+  min-height: 10rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px 10px;
+  width: 100%;
+}
+
+.box98 {
+  border: solid #21d4fd 1px !important;
+  min-width: 300px;
+  height: 300px;
+  border-radius: 10px;
+  padding: 20px;
+  background-image: url("../pic/hat.jpg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.box97 {
+  width: 500px;
+  border: solid #21d4fd 1px !important;
+  height: 500px;
+  border-radius: 10px;
+  position: relative;
+}
+.box97 .img-con {
+  height: 350px;
+  width: 500px;
+}
+
+.box98:hover,
+.box97:hover {
+  /* shadow */
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+  -o-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+  -ms-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+
+  animation: bounce 2s ease-out;
+}
+
+.hr {
+  padding: 30px 30px;
+}

@@ -1,19 +1,5 @@
-li a:hover {
-  /* shadow */
-  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
-  -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
-  -o-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
-  -ms-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
-
-  /* jump */
-  animation: rubberBand 0.6s ease; /* Adjust the duration as needed */
-}
-li a:active {
-  border-bottom: solid black 1px;
-  padding-bottom: 3px;
-  border-bottom-left-radius: 10px;
-}
+@import url("https://fonts.googleapis.com/css2?family=Grey+Qo&family=Platypi:ital,wght@0,300..800;1,300..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Grey+Qo&family=Lobster&family=Pacifico&family=Platypi:ital,wght@0,300..800;1,300..800&family=Qwigley&display=swap");
 
 .fa-solid fa-ellipsis {
   color: #333;
@@ -51,8 +37,7 @@ li {
 .logo {
   font-size: 20px;
   color: #000000;
-  font-family: Lora, sans-serif;
-  font-weight: 700;
+  font-weight: 400;
   left: 0px;
 }
 #nav_side {
@@ -63,6 +48,7 @@ li {
   padding-right: 7rem;
 }
 .icons-con {
+  font-family: "Pacifico", cursive;
   animation: rubberBand 3s ease;
   width: 150px;
   color: white;
@@ -83,8 +69,15 @@ li {
 }
 #home-con {
   display: flex;
+  height: 38rem;
+  background-color: beige;
+  border-bottom-left-radius: 20px;
   /* border-bottom: solid black 1px; */
 }
+#left-home {
+  position: relative;
+}
+
 #right-home {
   background-image: url("../pic/gra.jpg");
   background-size: cover;

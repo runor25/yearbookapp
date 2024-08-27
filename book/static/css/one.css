@@ -208,13 +208,31 @@ hr {
 }
 
 .break-box1 {
+  display: flex;
+  justify-content: center;
   font-family: "Platypi", serif;
   font-weight: 600;
   font-size: 34px;
-  padding: 100px;
-  padding-left: 10%;
-  margin-top: 30px;
+  height: 100px;
   background-color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  width: 30%;
+  border-radius: 50px;
+  align-items: center;
+  text-transform: uppercase;
+}
+.break-box1-con {
+  height: 100px;
+  width: 100%;
+  display: flex;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.break-side {
+  width: 35%;
+  height: 50%;
+  border-bottom: solid black 1px;
 }
 
 .user-co {
@@ -242,15 +260,11 @@ hr {
 
 .post-txt {
   min-height: 30%;
-  display: flex;
-  justify-content: center;
   align-content: center;
   text-align: center;
   border-top: solid #21d4fd 1px;
   padding-bottom: 3px;
   border-bottom-left-radius: 10px;
-  position: absolute;
-  bottom: 0px;
   width: 100%;
 }
 .box97 img {

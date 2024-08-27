@@ -31,8 +31,13 @@ class Event(models.Model):
         return self.title
 
 class EventImage(models.Model):
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    event = models.OneToOneField(Event, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='event_images')
+
+class EventImages(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    images = models.ImageField(upload_to='event_images')
+
 
 class Comment(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)

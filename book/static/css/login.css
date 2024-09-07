@@ -139,6 +139,15 @@ iframe {
   line-height: 1.2;
   text-align: center;
 }
+.error {
+  display: block;
+  font-family: Poppins-Bold;
+  font-size: 13px;
+  color: #333;
+  line-height: 1.2;
+  text-align: center;
+  border: 0.5px solid black;
+}
 .login100-form-title i {
   font-size: 60px;
 }

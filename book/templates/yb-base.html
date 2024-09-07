@@ -1,40 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <head>
-      {% load static %}
-      {% static "pic" as  img_path %}
-      <link
-        rel="stylesheet"
-        type="text/css"
-        href="{% static './css/material-design-iconic-font.min.css' %}"
-      />
-      <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"
-      />
-      <link rel="stylesheet" type="text/css" href="{% static 'css/one.css' %}" />
-      <link rel="stylesheet" type="text/css" href="{% static 'css/anime.css' %}" />
-      <link rel="stylesheet" type="text/css" href="{% static 'css/animation.css' %}" />
-
-
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
- {% comment %}
-    <script src="https://wow.min.js"></script>
-    <link rel="stylesheet" href="css/material-design-iconic-font.css" />
-    <link rel="stylesheet" href="css/material-design-iconic-font.min.css" />
-    <link rel="stylesheet" href="css/yb-base.css" />
-    <link rel="stylesheet" href="css/anime.css" />
-    <link rel="stylesheet" href="css/animation.css" />
-    <link rel="stylesheet" href="css/main.css" />
-    <link rel="stylesheet" href="css/year-con.css" />
-    <link rel="stylesheet" href="css/post.css" /> 
-  {% endcomment %}
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=, initial-scale=1.0" />
-    <title>home</title>
+    {% include "head.html" %}
   </head>
   <body>
     <div class="back-im">
@@ -56,12 +23,10 @@
         </div>
       </div>
       <div id="home-con">
-        <div id="left-home" class="home">
-        </div>
+        <div id="left-home" class="home"></div>
         <div id="right-home" class="home"></div>
       </div>
       <div class="color-light">
-      
         <div class="break-box1-con">
           <div class="break-side"></div>
           <div class="break-box1">
@@ -83,25 +48,24 @@
             <span>2017-2019 events</span>
           </div>
           <div class="break-side"></div>
-        </div>#
+        </div>
+        #
 
         <div class="post box99">
           {% for event, images in event_data %}
           <div class="box97 box-light">
-              <div class="img-con">
-                  {% for image in images %}
-                      <img src="{{ image.image.url }}" />
-                  {% endfor %}
-              </div>
-              <div class="post-txt">{{ event.title }}
-                  <p>{{ event.description }} <b>event</b></p>
-              </div>
+            <div class="img-con">
+              {% for image in images %}
+              <img src="{{ image.image.url }}" />
+              {% endfor %}
+            </div>
+            <div class="post-txt">
+              {{ event.title }}
+              <p>{{ event.description }} <b>event</b></p>
+            </div>
           </div>
           {% endfor %}
-      </div>
-      
-      
-      
+        </div>
       </div>
     </div>
   </body>

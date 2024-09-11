@@ -1,9 +1,11 @@
 from .models import Event, EventImage, Student
 from django.shortcuts import render, redirect
-#from django.contrib.auth.models
 from django.contrib.auth.models import User  # Or your custom user model
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required as lr
+
+#from django.contrib.auth.models
 #from django.contrib.auth.forms import AuthenticationForm   
 
 
@@ -16,11 +18,11 @@ def main_view(request):
         return render(request, 'yb-base.html', context)
     except Event.DoesNotExist:
         return render(request, "404.html")
-    
+
+@lr
 def home_view(request):
     try:
         events = Event.objects.all()
-        student = Student.objects.all()
         event_data = [(event, EventImage.objects.filter(event=event)) for event in events]
         context = {"event_data": event_data}
         return render(request, 'my_page.html', context)
@@ -90,4 +92,4 @@ def register_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('login')  # Redirect to the login page after logging out
+    return redirect('main')  # Redirect to the login page after logging out

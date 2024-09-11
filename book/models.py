@@ -12,7 +12,7 @@ class Student(models.Model):
     year_of_graduation = models.IntegerField()
     phone_number = models.CharField(max_length=20, blank=True)
     address = models.TextField(blank=True)
-    profile_picture = models.ImageField(upload_to='profile_pics', blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='profile_pics', blank=True, null=True, default='default.jpg')
     about_me = models.TextField(blank=True)
     can_post = models.BooleanField(default=False)
     linkedin = models.URLField(blank=True)

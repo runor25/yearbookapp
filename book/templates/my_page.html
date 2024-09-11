@@ -28,7 +28,8 @@
       <div id="home-con">
         <div id="left-home" class="home">
           <div class="user-con">
-            <div class="user-im box-dark"></div>
+            {% comment %} <div class="user-im box-dark"></div> {% endcomment %}
+            <img class='user-im' src="{% if user.profile_picture %}{{ user.student.profile_picture.url }}{% else %}{% static 'default.jpg' %}{% endif %}">
             <div class="user-nam">{{ user.username }}</div>
           </div>
         </div>

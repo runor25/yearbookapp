@@ -16,9 +16,12 @@
             <li><a href="about_us.html">contact us</a></li>
             <!-- <li><a href="search.html">search</a></li> -->
           </ul>
-          <div class="icons-con" id="icons-con">
-            <i class="zmdi zmdi-search"></i>
-          </div>
+          <a href="{% url 'login' %}">
+            <div class="icons-con" id="icons-con">
+              {% comment %} <i class="zmdi zmdi-search"></i> {% endcomment %}
+              <i class="zmdi zmdi-account"></i>
+            </div>
+          </a>
           <div class="menu"><i class="fa-solid fa-ellipsis"></i></div>
         </div>
       </div>

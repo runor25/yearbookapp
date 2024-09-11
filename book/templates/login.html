@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Login V2</title>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="css/material-design-iconic-font.min.css" />
-    <link rel="stylesheet" href="css/material-design-iconic-font.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="css/main.css" />
-    <link rel="stylesheet" href="css/login.css" />
+    {% load static %} {% include "head.html" %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}" />
+
   </head>
   <body>
     <div class="limiter">
       <div class="container-login100">
         <div class="wrap-login100">
-          <form class="login100-form validate-form">
-            <span class="login100-form-title p-b-26"> Ubook. </span>
-            <span class="login100-form-title p-b-48">
-              <i class="zmdi zmdi-font"></i>
+          <form class="login100-form validate-form" method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <span class="error">
+              {% if errors %}
+              <ul>
+                {% for error in errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
             </span>
+            <span class="login100-form-title p-b-26"> Ubook. </span>
             <div
               class="wrap-input100 validate-input"
               data-validate="Valid email is: a@b.c"
@@ -32,13 +35,13 @@
               <span class="btn-show-pass">
                 <i class="zmdi zmdi-eye"></i>
               </span>
-              <input class="input100 passin" type="password" name="pass" />
+              <input class="input100 passin" type="password" name="password" />
               <span class="focus-input100" data-placeholder="Password"></span>
             </div>
             <div class="container-login100-form-btn">
               <div class="wrap-login100-form-btn">
                 <div class="login100-form-bgbtn"></div>
-                <button class="login100-form-btn">Login</button>
+                <button class="login100-form-btn" type="submit">Login</button>
               </div>
             </div>
             <div class="text-center p-t-115">
@@ -50,6 +53,6 @@
       </div>
     </div>
 
-    <script src="css/main.js"></script>
+    <script src="{% static "css/main.js" %}"></script>
   </body>
 </html>

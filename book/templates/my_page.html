@@ -3,27 +3,7 @@
   <head>
     <head>
       {% load static %}
-      {% static "pic" as  img_path %}
-      <link
-        rel="stylesheet"
-        type="text/css"
-        href="{% static './css/material-design-iconic-font.min.css' %}"
-      />
-      <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"
-      />
-      <link rel="stylesheet" type="text/css" href="{% static 'css/one.css' %}" />
-      <link rel="stylesheet" type="text/css" href="{% static 'css/anime.css' %}" />
-      <link rel="stylesheet" type="text/css" href="{% static 'css/animation.css' %}" />
-
-
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=, initial-scale=1.0" />
-    <title>my page</title>
+      {% include "head.html" %}
   </head>
   <body>
     <div class="back-im">
@@ -39,7 +19,8 @@
             <!-- <li><a href="search.html">search</a></li> -->
           </ul>
           <div class="icons-con" id="icons-con">
-            <i class="zmdi zmdi-search"></i>
+            {% comment %} <i class="zmdi zmdi-search"></i> {% endcomment %}
+            <a href="{% url 'logout' %}">Logout</a>
           </div>
           <div class="menu"><i class="fa-solid fa-ellipsis"></i></div>
         </div>
@@ -48,7 +29,7 @@
         <div id="left-home" class="home">
           <div class="user-con">
             <div class="user-im box-dark"></div>
-            <div class="user-nam">AWHIE ORUNOR</div>
+            <div class="user-nam">{{ user.username }}</div>
           </div>
         </div>
         <div id="right-home" class="home"></div>

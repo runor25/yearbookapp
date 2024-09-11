@@ -1,22 +1,14 @@
-from .models import Event, EventImage
+from .models import Event, EventImage, Student
 from django.shortcuts import render, redirect
 #from django.contrib.auth.models
 from django.contrib.auth.models import User  # Or your custom user model
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 #from django.contrib.auth.forms import AuthenticationForm   
 
-#from django.http import HttpResponse
 
 
-
-
-
-# Create your views here.
-
-
-
-
-def home(request):
+def main_view(request):
     try:
         events = Event.objects.all()
         event_data = [(event, EventImage.objects.filter(event=event)) for event in events]
@@ -24,27 +16,52 @@ def home(request):
         return render(request, 'yb-base.html', context)
     except Event.DoesNotExist:
         return render(request, "404.html")
+    
+def home_view(request):
+    try:
+        events = Event.objects.all()
+        student = Student.objects.all()
+        event_data = [(event, EventImage.objects.filter(event=event)) for event in events]
+        context = {"event_data": event_data}
+        return render(request, 'my_page.html', context)
+    except Event.DoesNotExist:
+        return render(request, "404.html")
+
+
 
 
 def login_view(request):
+    errors = []  # Initialize the errors list
+
     if request.method == 'POST':
-        username = request.POST.get('username')
+        email = request.POST.get('email')
         password = request.POST.get('password')
 
-        # Data validation (improve as needed)
-        if not username or not password:
-            errors = ["Please fill in all required fields."]
-        else:
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('home')  # Replace with your desired success page
-            else:
-                errors = ["Invalid credentials."]
+        # Data validation
+        if not email:
+            errors.append("Email is required.")
+        if not password:
+            errors.append("Password is required.")
 
+        if not errors:
+            try:
+                # Get the user by email
+                user = User.objects.get(email=email)
+                # Authenticate the user using the username (email won't work directly in authenticate)
+                user = authenticate(username=user.username, password=password)
+
+                if user is not None:
+                    login(request, user)
+                    return redirect('home')  # Redirect to the home page after login
+                else:
+                    errors.append("Invalid email or password.")
+            except User.DoesNotExist:
+                errors.append("No user with this email found.")
+
+    # If it's a GET request or if there are errors, render the login page
     return render(request, 'login.html', {'errors': errors})
 
-def register(request):
+def register_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         email = request.POST.get('email')
@@ -70,3 +87,7 @@ def register(request):
         return render(request, 'register.html', {'errors': errors})
     else:
         return render(request, 'register.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')  # Redirect to the login page after logging out

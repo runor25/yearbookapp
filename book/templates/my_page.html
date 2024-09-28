@@ -13,7 +13,7 @@
             <a href="" class="logo">Ubook.</a>
           </div>
           <ul class="ul">
-            <li><a href="year.html">years</a></li>
+            <li><a href="{% url 'year' %}">years</a></li>
             <li><a href="event.html">recent event</a></li>
             <li><a href="about_us.html">contact us</a></li>
             <!-- <li><a href="search.html">search</a></li> -->
@@ -29,7 +29,7 @@
         <div id="left-home" class="home">
           <div class="user-con">
             {% comment %} <div class="user-im box-dark"></div> {% endcomment %}
-            <img class='user-im' src="{% if user.profile_picture %}{{ user.student.profile_picture.url }}{% else %}{% static 'default.jpg' %}{% endif %}">
+            <img class='user-im box-dark' src="{% if user.student.profile_picture %}{{ user.student.profile_picture.url }}{% else %}{% static 'default.jpg' %}{% endif %}" >
             <div class="user-nam">{{ user.username }}</div>
           </div>
         </div>
@@ -78,5 +78,7 @@
       </div>
       </div>
     </div>
+    
+    <script src="{% static "css/main.js" %}"></script>
   </body>
 </html>

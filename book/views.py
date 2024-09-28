@@ -4,11 +4,28 @@ from django.contrib.auth.models import User  # Or your custom user model
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required as lr
-
+from .forms import StudentUpdateForm
 #from django.contrib.auth.models
 #from django.contrib.auth.forms import AuthenticationForm   
 
-
+@lr
+def profile_view(request):
+    if request.method == 'POST':
+        s_form = StudentUpdateForm(request.POST, request.FILES)
+        if s_form.is_valid():
+            user = request.user  # Get the logged-in user
+            student = s_form.save(commit=False)  # Save form data without saving to DB yet
+            student.user = user  # Associate the logged-in user with the student
+            student.save()  # Now save the completed student object
+            message.success(request, f'Your account has been updated!')
+            return redirect('profile')
+    else:
+        user = request.user  # Get the logged-in user (optional, for pre-filling data)
+        s_form = StudentUpdateForm(instance=user.student)  # Pre-fill form with existing data (optional)
+    context = {
+        's_form': s_form
+    }
+    return render(request, 'profile.html', context)
 
 def main_view(request):
     try:
@@ -28,7 +45,6 @@ def home_view(request):
         return render(request, 'my_page.html', context)
     except Event.DoesNotExist:
         return render(request, "404.html")
-
 
 
 
@@ -64,6 +80,7 @@ def login_view(request):
     return render(request, 'login.html', {'errors': errors})
 
 def register_view(request):
+    errors = []
     if request.method == 'POST':
         username = request.POST.get('username')
         email = request.POST.get('email')
@@ -72,24 +89,33 @@ def register_view(request):
 
         # Data validation (improve as needed)
         if not username or not email or not password1 or not password2:
-            errors = ["Please fill in all required fields."]
+            errors.append("Please fill in all required fields.")
         elif password1 != password2:
-            errors = ["Passwords do not match."]
+            errors.append("Passwords do not match.")
         elif User.objects.filter(username=username).exists():
-            errors = ["Username already exists."]
+            errors.append("Username already exists.")
         else:
-            # Create user and handle errors (consider using try-except)
+            # Create user and handle errors (using try-except)
             try:
                 user = User.objects.create_user(username, email, password1)
-                login(request, user)
-                return redirect('login')  # Redirect to success page
-            except Exception as e:
-                errors = [f"Registration failed: {str(e)}"]
+                login(request, user)  # Log in the newly created user
 
-        return render(request, 'register.html', {'errors': errors})
-    else:
-        return render(request, 'register.html')
+                # Redirect to login page only if user creation and login succeed
+                return redirect('login')
+
+            except Exception as e:
+                errors.append(f"Registration failed: {str(e)}")
+
+    return render(request, 'register.html', {'errors': errors})
+
 
 def logout_view(request):
+
     logout(request)
     return redirect('main')  # Redirect to the login page after logging out
+
+def year_view(request):
+    try:
+        return render(request,'year.html')
+    except Event.DoesNotExist:
+        return render(request, "404.html")

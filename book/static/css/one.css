@@ -358,6 +358,8 @@ li {
   background-position: center;
   position: relative;
   border-bottom-left-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.17);
+  background-blend-mode: color;
 }
 
 .year-txt {

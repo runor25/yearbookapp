@@ -2,25 +2,30 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+import datetime
 
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    department = models.CharField(max_length=50)
-    year_of_graduation = models.IntegerField()
-    phone_number = models.CharField(max_length=20, blank=True)
-    address = models.TextField(blank=True)
+    first_name = models.CharField(max_length=50, blank=True)
+    last_name = models.CharField(max_length=50, blank=True)
     profile_picture = models.ImageField(upload_to='profile_pics', blank=True, null=True, default='default.jpg')
-    about_me = models.TextField(blank=True)
+    year_of_admission = models.IntegerField(choices=[(year, year) for year in range(2017, datetime.date.today().year + 1)], default=2017)
     can_post = models.BooleanField(default=False)
-    linkedin = models.URLField(blank=True)
-    whatsapp = models.CharField(max_length=20, blank=True)
-    instagram = models.CharField(max_length=50, blank=True)
+    
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+    
+class Moreinfo(models.Model):
+    about_me = models.TextField(blank=True)
+    linkedin = models.URLField(blank=True)
+    whatsapp = models.CharField(max_length=20, blank=True)
+    instagram = models.CharField(max_length=50, blank=True)
+    phone_number = models.CharField(max_length=20, blank=True)
+
+    def __str__(self):
+        return self.phone_number
 
 class Event(models.Model):
     title = models.CharField(max_length=100)

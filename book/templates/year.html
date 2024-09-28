@@ -1,24 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Grey+Qo&family=Platypi:ital,wght@0,300..800;1,300..800&display=swap"
-      rel="stylesheet"
-    />
-
-    <link rel="stylesheet" href="css/material-design-iconic-font.css" />
-    <link rel="stylesheet" href="css/material-design-iconic-font.min.css" />
-    <link rel="stylesheet" href="css/yb-base.css" />
-    <link rel="stylesheet" href="css/anime.css" />
-    <link rel="stylesheet" href="css/animation.css" />
-    <link rel="stylesheet" href="css/main.css" />
-    <link rel="stylesheet" href="css/year-con.css" />
-    <link rel="stylesheet" href="css/post.css" />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=, initial-scale=1.0" />
-    <title>Document</title>
+    <head>
+      {% load static %}
+      {% include "head.html" %}
   </head>
   <body>
     <div>
@@ -28,10 +13,9 @@
             <a href="" class="logo">Ubook.</a>
           </div>
           <ul class="ul">
-            <li><a href="login.html">home</a></li>
-            <li><a href="login.html">years</a></li>
-            <li><a href="">recent event</a></li>
-            <li><a href="">contact us</a></li>
+            <li><a href="{% url 'home' %}">home</a></li>
+            <li><a href="{% url 'year' %}">recent event</a></li></li>
+            <li><a href="{% url 'home' %}">contact us</a></li>
           </ul>
           <div class="icons-con" id="icons-con">
             <i class="zmdi zmdi-search"></i>
@@ -44,7 +28,7 @@
           <div id="home-con-con">
             <div class="page-title-con">
               <div class="page-title">
-                <h1>class.</h1>
+                <h1>year <span>.</span></h1>
               </div>
             </div>
             <div class="hrs">
@@ -74,6 +58,6 @@
       </div>
     </div>
 
-    <script src="css/main.js"></script>
+    <script src="{% static "css/main.js" %}"></script>
   </body>
 </html>

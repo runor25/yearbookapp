@@ -6,7 +6,7 @@ import datetime
 
 
 class Student(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
     profile_picture = models.ImageField(upload_to='profile_pics', blank=True, null=True, default='default.jpg')

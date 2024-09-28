@@ -9,5 +9,6 @@ def create_profile(sender, instance, created, **kwargs):
         Student.objects.create(user=instance)
 
 @receiver(ps,sender=User)
-def save_profile(sender, instance, **kwargs):
-    instance.student.save()
+def update_profile(sender, instance, created, **kwargs):
+    if created==False:
+        instance.student.save()

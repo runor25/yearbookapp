@@ -8,23 +8,20 @@ from .forms import StudentUpdateForm
 #from django.contrib.auth.models
 #from django.contrib.auth.forms import AuthenticationForm   
 
-@lr
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import StudentUpdateForm
+
 def profile_view(request):
     if request.method == 'POST':
-        s_form = StudentUpdateForm(request.POST, request.FILES)
+        s_form = StudentUpdateForm(request.POST, request.FILES, instance=request.user.student)
         if s_form.is_valid():
-            user = request.user  # Get the logged-in user
-            student = s_form.save(commit=False)  # Save form data without saving to DB yet
-            student.user = user  # Associate the logged-in user with the student
-            student.save()  # Now save the completed student object
-            message.success(request, f'Your account has been updated!')
+            student = s_form.save()  # Update the existing student object
+            messages.success(request, f'Your account has been updated!')
             return redirect('profile')
     else:
-        user = request.user  # Get the logged-in user (optional, for pre-filling data)
-        s_form = StudentUpdateForm(instance=user.student)  # Pre-fill form with existing data (optional)
-    context = {
-        's_form': s_form
-    }
+        s_form = StudentUpdateForm(instance=request.user.student)
+    context = {'s_form': s_form}
     return render(request, 'profile.html', context)
 
 def main_view(request):

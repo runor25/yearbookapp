@@ -14,7 +14,7 @@
           </div>
           <ul class="ul">
             <li><a href="{% url 'home' %}">home</a></li>
-            <li><a href="{% url 'year' %}">recent event</a></li></li>
+            <li><a href="#">recent event</a></li></li>
             <li><a href="{% url 'home' %}">contact us</a></li>
           </ul>
           <div class="icons-con" id="icons-con">
@@ -39,24 +39,39 @@
       </div>
     </div>
     <div class="years box99">
+      {% for yea in yeas %}
       <div class="year-txt">
-        <h1>2017-2019</h1>
+        <a href="{% url 'year' yea %}"><h1> {{ yea }} </h1></a>
       </div>
-      <div class="year-txt">
-        <h1>2018-2020</h1>
-      </div>
-      <div class="year-txt">
-        <h1>2019-2021</h1>
-      </div>
+      {% endfor %}
     </div>
-
-    <div class="break-box br"><span>2017-2019 class</span></div>
+    <div class="break-box1-con">
+      <div class="break-side"></div>
+      <div class="break-box1">
+        <span>{{requested_year}}</span>
+      </div>
+      <div class="break-side"></div>
+    </div>
     <div class="post box99">
-      <div class="user-co">
-        <div class="user-im box-dark"></div>
-        <div class="user-nam">AWHIE ORUNOR</div>
-      </div>
-    </div>
+    {% for student in students %}
+          <div class="user-co">
+            <div ><img src="{{ student.profile_picture.url }}" alt="Profile picture" class="user-im box-dark"></div>
+            <div class="user-nam">{{ student.first_name }} {{ student.last_name }}</div>
+          </div>
+        
+    {% endfor %}
+  </div>
+    {% comment %} <h1>Students Admitted in {{ requested_year }}</h1>
+    <ul>
+      {% for student in students %}
+        <li>
+          {{ student.first_name }} {{ student.last_name }} (Admitted: {{ student.year_of_admission }})
+          {% if student.profile_picture %}
+            <img src="{{ student.profile_picture.url }}" alt="Profile picture" width="100" height="100">
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul> {% endcomment %}
 
     <script src="{% static "css/main.js" %}"></script>
   </body>

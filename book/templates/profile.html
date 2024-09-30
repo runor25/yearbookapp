@@ -22,10 +22,11 @@
               {% if errors %}
               <ul>
                 {% for error in errors %}
-                <li>{{ error }}</li>
+                <li>{{ messages }}</li>
                 {% endfor %}
               </ul>
               {% endif %}
+              {% for message in messages %}<div class="alert alert-success">{{ message }}</div>{% endfor %}
             </span>
             {{s_form|crispy}}
             

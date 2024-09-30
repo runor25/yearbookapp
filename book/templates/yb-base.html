@@ -11,7 +11,7 @@
             <a href="" class="logo">Ubook.</a>
           </div>
           <ul class="ul">
-            <li><a href="{% url 'year' %}">years</a></li>
+            <li><a href="{% url 'year' current_year %}">years</a></li>
             <li><a href="event.html">recent event</a></li>
             <li><a href="about_us.html">contact us</a></li>
             <!-- <li><a href="search.html">search</a></li> -->
@@ -33,22 +33,24 @@
         <div class="break-box1-con">
           <div class="break-side"></div>
           <div class="break-box1">
-            <span>2017-2019 class</span>
+            <span>{{current_year}} class</span>
           </div>
           <div class="break-side"></div>
         </div>
 
         <div class="post box99">
+          {% for student in students %}
           <div class="user-co">
-            <div class="user-im box-light"></div>
-            <div class="user-nam">AWHIE ORUNOR</div>
+            <div ><img src="{{ student.profile_picture.url }}" alt="Profile picture" class="user-im box-dark"></div>
+            <div class="user-nam">{{ student.first_name }} {{ student.last_name }}</div>
           </div>
+          {% endfor %}
         </div>
 
         <div class="break-box1-con">
           <div class="break-side"></div>
           <div class="break-box1">
-            <span>2017-2019 events</span>
+            <span>{{current_year}} events</span>
           </div>
           <div class="break-side"></div>
         </div>

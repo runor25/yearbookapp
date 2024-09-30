@@ -13,14 +13,14 @@
             <a href="" class="logo">Ubook.</a>
           </div>
           <ul class="ul">
-            <li><a href="{% url 'year' %}">years</a></li>
+            <li><a href="{% url 'year'  user.student.year_of_admission  %}">years</a></li>
             <li><a href="event.html">recent event</a></li>
             <li><a href="about_us.html">contact us</a></li>
             <!-- <li><a href="search.html">search</a></li> -->
           </ul>
           <div class="icons-con" id="icons-con">
             {% comment %} <i class="zmdi zmdi-search"></i> {% endcomment %}
-            <a href="{% url 'logout' %}">Logout</a>
+            <a href="{% url 'logout' %}"><span class='color-white'>Logout</span></a>
           </div>
           <div class="menu"><i class="fa-solid fa-ellipsis"></i></div>
         </div>
@@ -40,23 +40,25 @@
           <div class="break-box1-con">
             <div class="break-side"></div>
             <div class="break-box1">
-              <span>2017-2019 class</span>
+              <span>{{user.student.year_of_admission}} class</span>
             </div>
             <div class="break-side"></div>
           </div>
 
         <div class="post box99">
+          {% for student in students %}
           <div class="user-co">
-            <div class="user-im box-light"></div>
-            <div class="user-nam">AWHIE ORUNOR</div>
+            <div ><img src="{{ student.profile_picture.url }}" alt="Profile picture" class="user-im box-dark"></div>
+            <div class="user-nam">{{ student.first_name }} {{ student.last_name }}</div>
           </div>
+    {% endfor %}
         </div>
 
       
           <div class="break-box1-con">
             <div class="break-side"></div>
             <div class="break-box1">
-              <span>2017-2019 events</span>
+              <span>{{user.student.year_of_admission}} events</span>
             </div>
             <div class="break-side"></div>
           </div>

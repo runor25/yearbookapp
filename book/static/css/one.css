@@ -7,6 +7,15 @@
   box-sizing: border-box;
 }
 
+a:hover {
+  text-decoration: none;
+  color: none;
+}
+.color-white {
+  color: white;
+  font-family: Poppins-Bold;
+}
+
 body {
   font-family: "Platypi", serif;
   font-size: 14px;
@@ -176,6 +185,7 @@ hr {
   font-size: larger;
   padding: 10px;
   justify-content: center;
+  text-transform: uppercase;
 }
 .user-im {
   height: 250px;
@@ -344,7 +354,7 @@ li {
 #home-con {
   display: flex;
   height: 38rem;
-  background-color: beige;
+  background-color: rgb(255, 255, 255);
   border-bottom-left-radius: 20px;
   /* border-bottom: solid black 1px; */
 }

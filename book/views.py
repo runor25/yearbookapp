@@ -7,38 +7,46 @@ from django.contrib.auth.decorators import login_required as lr
 from .forms import StudentUpdateForm
 #from django.contrib.auth.models
 #from django.contrib.auth.forms import AuthenticationForm   
+import datetime
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import StudentUpdateForm
 
+current_year = datetime.date.today().year
+
+@lr
 def profile_view(request):
     if request.method == 'POST':
         s_form = StudentUpdateForm(request.POST, request.FILES, instance=request.user.student)
         if s_form.is_valid():
             student = s_form.save()  # Update the existing student object
             messages.success(request, f'Your account has been updated!')
-            return redirect('profile')
+            return redirect('home')
     else:
         s_form = StudentUpdateForm(instance=request.user.student)
     context = {'s_form': s_form}
     return render(request, 'profile.html', context)
 
 def main_view(request):
+    year=current_year
     try:
-        events = Event.objects.all()
+        students = Student.objects.filter(year_of_admission=year)
+        events = Event.objects.filter(event_year=year)
         event_data = [(event, EventImage.objects.filter(event=event)) for event in events]
-        context = {"event_data": event_data}
+        context = {'students': students,"event_data": event_data,'current_year':year}
         return render(request, 'yb-base.html', context)
     except Event.DoesNotExist:
         return render(request, "404.html")
 
 @lr
 def home_view(request):
+    year=request.user.student.year_of_admission
     try:
-        events = Event.objects.all()
+        students = Student.objects.filter(year_of_admission=year)
+        events = Event.objects.filter(event_year=year)
         event_data = [(event, EventImage.objects.filter(event=event)) for event in events]
-        context = {"event_data": event_data}
+        context = {'students': students, "event_data": event_data}
         return render(request, 'my_page.html', context)
     except Event.DoesNotExist:
         return render(request, "404.html")
@@ -98,21 +106,39 @@ def register_view(request):
                 login(request, user)  # Log in the newly created user
 
                 # Redirect to login page only if user creation and login succeed
-                return redirect('login')
-
+                return redirect('profile')
             except Exception as e:
                 errors.append(f"Registration failed: {str(e)}")
 
     return render(request, 'register.html', {'errors': errors})
 
-
+@lr
 def logout_view(request):
 
     logout(request)
     return redirect('main')  # Redirect to the login page after logging out
 
-def year_view(request):
+def year_view(request, year=None):
+    yeas = [yea for yea in range(2017, current_year + 1)]  # List of years
+
+
+
+
+
+
+    if year is None:
+        # Set default year to the current year
+        year = datetime.date.today().year
+
     try:
-        return render(request,'year.html')
-    except Event.DoesNotExist:
-        return render(request, "404.html")
+        # Convert year from URL to integer (handle potential errors)
+        year = int(year)
+    except ValueError:
+        # Display error message if year is not an integer
+        return render(request, 'error.html', {'error_message': 'Invalid year provided.'})
+
+    # Filter students based on the requested year
+    students = Student.objects.filter(year_of_admission=year)
+
+    context = {'students': students, 'requested_year': year, 'yeas': yeas}
+    return render(request, 'year.html', context)

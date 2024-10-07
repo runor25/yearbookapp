@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> 
   <head>
     <head>
       {% load static %}
@@ -15,12 +15,12 @@
           <ul class="ul">
             <li><a href="{% url 'year'  user.student.year_of_admission  %}">years</a></li>
             <li><a href="event.html">recent event</a></li>
-            <li><a href="about_us.html">contact us</a></li>
+            <li><a href="{% url 'about_us' %}">contact us</a></li>
             <!-- <li><a href="search.html">search</a></li> -->
           </ul>
           <div class="icons-con" id="icons-con">
             {% comment %} <i class="zmdi zmdi-search"></i> {% endcomment %}
-            <a href="{% url 'logout' %}"><span class='color-white'>Logout</span></a>
+            <a href="{% url 'logout' %}"><p class='color-white'>Logout</p></a>
           </div>
           <div class="menu"><i class="fa-solid fa-ellipsis"></i></div>
         </div>
@@ -80,7 +80,9 @@
       </div>
       </div>
     </div>
-    
+
+
+    {% include "footer.html" %}
     <script src="{% static "css/main.js" %}"></script>
   </body>
 </html>

@@ -61,6 +61,7 @@ h4,
 h5,
 h6 {
   margin: 0;
+  color: inherit;
 }
 p {
   font-family: Poppins-Regular;
@@ -76,6 +77,7 @@ a {
   text-decoration: none;
   cursor: pointer;
   margin: 0;
+  color: inherit;
 }
 
 .box99 {
@@ -112,10 +114,7 @@ a {
   position: relative;
   background-color: beige;
 }
-.box97 .img-con {
-  height: 350px;
-  width: 500px;
-}
+
 hr {
   background-color: #000000; /* Change the color to your desired value */
   height: 2px; /* Adjust the height as needed */
@@ -127,18 +126,20 @@ hr {
 }
 
 .hrs {
-  padding: 30px 30px;
+  padding: 10px 80px;
 }
 
 .home-con {
   display: flex;
-  height: 35rem;
+  height: 90%;
   align-self: center;
   width: 90%;
   justify-content: center;
   border: solid black 1px;
   border-bottom-left-radius: 30px;
+  margin: 3.7rem;
 }
+
 #home-con-con {
   height: 90%;
   align-self: center;
@@ -290,13 +291,13 @@ hr {
   font-size: large;
 }
 li a {
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.1rem;
   padding: 10px 15px;
   display: inline-block;
-  color: rgba(0, 0, 0, 0.5);
   position: relative;
   font-weight: 700;
+  color: white;
 }
 li {
   list-style: none;
@@ -315,12 +316,12 @@ li {
   position: absolute;
   width: 100%;
   top: 0px;
-  margin-top: 14px;
+  padding: 10px;
   text-align: center;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 .logo {
-  font-size: 20px;
-  color: #000000;
+  color: #fff;
   font-weight: 400;
   left: 0px;
 }
@@ -332,10 +333,10 @@ li {
   padding-right: 7rem;
 }
 .icons-con {
-  font-family: "Pacifico", cursive;
   animation: rubberBand 3s ease;
   width: 150px;
   color: white;
+  font-size: xx-large;
 }
 #icons-con {
   background-color: rgba(0, 0, 0, 0.2);
@@ -354,7 +355,7 @@ li {
 #home-con {
   display: flex;
   height: 38rem;
-  background-color: rgb(255, 255, 255);
+  background-color: #f8f9fa !important;
   border-bottom-left-radius: 20px;
   /* border-bottom: solid black 1px; */
 }
@@ -383,7 +384,43 @@ li {
   font-family: "Grey Qo", cursive;
   font-weight: 400;
   font-style: normal;
+  background-color: rgba(0, 0, 0, 0.5);
 }
-.year-txt h1 {
-  align-self: center;
+.zmdi {
+  color: white;
+}
+
+.message_box {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 3rem;
+  text-transform: uppercase;
+  color: white;
+}
+
+.detials-div {
+  min-height: 30rem;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin: 30px 30px;
+  display: flex;
+}
+.details-img {
+  width: 40%;
+  margin: 10px;
+}
+.details-left {
+  width: 60%;
+  margin: 10px;
+  border: 3px solid black;
+  padding: 20px;
+}
+.info {
+  margin-right: 30px;
+  text-transform: uppercase;
+  width: 150px;
+  height: 40px;
+  display: inline-block;
+}
+.details-left-con {
+  margin-top: 10px;
 }

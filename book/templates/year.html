@@ -1,7 +1,71 @@
 <!DOCTYPE html>
+{%  extends "base.html"  %}
+
+{% block home %}
+<div class="home-con">
+  <div id="home-con-con">
+    <div class="page-title-con">
+      <div class="page-title">
+        <h1>class.</h1>
+      </div>
+    </div>
+    <div class="hrs">
+      <hr />
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block body %}
+
+<div class="years box99">
+  {% for yea in yeas %}
+  <div class="year-txt">
+    <a href="{% url 'year' yea %}"><h3> {{ yea }} - {{ yea|add:2 }} </h3></a>
+  </div>
+  {% endfor %}
+</div>
+<div class="break-box1-con">
+  <div class="break-side"></div>
+  <div class="break-box1">
+    <span>{{requested_year}} - {{ requested_year|add:2 }}</span>
+  </div>
+  <div class="break-side"></div>
+</div>
+<div class="post box99">
+{% for student in students %}
+      <div class="user-co">
+        <div ><img src="{{ student.profile_picture.url }}" alt="Profile picture" class="user-im box-dark"></div>
+        <div class="user-nam">{{ student.first_name }} {{ student.last_name }}</div>
+      </div>
+{% endfor %}
+</div>
+
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} 
 <html lang="en">
   <head>
-    <head>
       {% load static %}
       {% include "head.html" %}
   </head>
@@ -14,7 +78,7 @@
           </div>
           <ul class="ul">
             <li><a href="{% url 'home' %}">home</a></li>
-            <li><a href="#">recent event</a></li></li>
+            <li><a href="#">recent event</a></li>
             <li><a href="{% url 'home' %}">contact us</a></li>
           </ul>
           <div class="icons-con" id="icons-con">
@@ -37,18 +101,17 @@
           </div>
         </div>
       </div>
-    </div>
     <div class="years box99">
       {% for yea in yeas %}
       <div class="year-txt">
-        <a href="{% url 'year' yea %}"><h1> {{ yea }} </h1></a>
+        <a href="{% url 'year' yea %}"><h1> {{ yea }} - {{ yea|add:2 }} </h1></a>
       </div>
       {% endfor %}
     </div>
     <div class="break-box1-con">
       <div class="break-side"></div>
       <div class="break-box1">
-        <span>{{requested_year}}</span>
+        <span>{{requested_year}} - {{ requested_year|add:2 }}</span>
       </div>
       <div class="break-side"></div>
     </div>
@@ -58,21 +121,13 @@
             <div ><img src="{{ student.profile_picture.url }}" alt="Profile picture" class="user-im box-dark"></div>
             <div class="user-nam">{{ student.first_name }} {{ student.last_name }}</div>
           </div>
-        
     {% endfor %}
   </div>
-    {% comment %} <h1>Students Admitted in {{ requested_year }}</h1>
-    <ul>
-      {% for student in students %}
-        <li>
-          {{ student.first_name }} {{ student.last_name }} (Admitted: {{ student.year_of_admission }})
-          {% if student.profile_picture %}
-            <img src="{{ student.profile_picture.url }}" alt="Profile picture" width="100" height="100">
-          {% endif %}
-        </li>
-      {% endfor %}
-    </ul> {% endcomment %}
 
+  </div>
+    {% include "footer.html" %}
     <script src="{% static "css/main.js" %}"></script>
   </body>
-</html>
+</html> 
+
+{% endcomment %}

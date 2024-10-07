@@ -13,6 +13,10 @@ urlpatterns = [
     path('home/', views.home_view,name='home'),
     path('year/<int:year>/', views.year_view, name='year'),
     path('profile/',views.profile_view,name='profile'),
+    path('event/<int:year>/',views.event_view,name='event'),
+    path('message/',views.message_view,name='message'),
+    path('about_us/',views.about_us_view,name='about_us'),
+    path('detail/',views.detail_view,name='detail'),
 ]
 
 

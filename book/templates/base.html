@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      {% load static %}
+      {% include "head.html" %}
+  </head>
+  <body>
+            <div class="back-im">
+                        <div id="nav">
+                                  <div id="nav_side">
+                                    <div id="nav_logo" class="icons-con">
+                                      <a href="" class="logo">Ubook.</a>
+                                    </div>
+                                      <ul class="ul">
+                                        <li><a href="{% if request.user.is_authenticated %}{% url 'home'  %}{% else %}{% url 'main'  %}{% endif %}">home</a></li>
+                                        <li><a href="{% if request.user.is_authenticated %}{% url 'event'  user.student.year_of_admission  %}{% else %}{% url 'event' current_year  %}{% endif %}">events</a></li>
+                                        <li><a href="{% if request.user.is_authenticated %}{% url 'year'  user.student.year_of_admission  %}{% else %}{% url 'year' current_year  %}{% endif %}">years</a></li>
+                                        <li><a href="{% url 'about_us' %}">contact us</a></li>
+                                      </ul>
+
+                                    {% if request.user.is_authenticated %}
+                                        <div class="icons-con" id="icons-con"><a href="{% url 'logout' %}"><p class='color-white'>Logout</p></a></div>
+                                    {% else %}
+                                        <div class="icons-con" id="icons-con"><a href="{% url 'login' %}"><i class="zmdi zmdi-account"></i></a></div>
+                                    {% endif %}
+                                        
+                                    
+                                  <div class="menu"><i class="fa-solid fa-ellipsis"></i></div>
+                                </div>
+                      </div>
+                    <div id="home-con">
+                            <div id="left-home" class="home">
+                              {% block home %}
+
+                              {% endblock %} 
+                            </div>
+                    <div id="right-home" class="home"></div>
+          </div>
+                    <div class="color-light">
+
+                        {% block body %}
+
+                        {% endblock %} 
+
+                    </div>
+                    
+      </div>
+
+    {% include "footer.html" %}
+    <script src="{% static "css/main.js" %}"></script>
+  </body>
+</html>
+
+
+{% if request.user.is_authenticated %}
+{% else %}
+{% endif %}
+    

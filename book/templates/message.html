@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %} {% include "head.html" %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}" />
+
+  </head>
+  <body>
+    <div class="limiter">
+      <div class="container-login100">
+        <div class='message_box'>
+            {% for mes in message %}
+            <b><h1>{{mes}}</h1></b><br>
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <script src="{% static "css/main.js" %}"></script>
+  </body>
+</html>

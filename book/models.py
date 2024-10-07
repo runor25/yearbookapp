@@ -2,8 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import RegexValidator
 import datetime
 from PIL import Image
+
 import os
 
 class Student(models.Model):
@@ -13,6 +15,7 @@ class Student(models.Model):
     profile_picture = models.ImageField(upload_to='profile_pics', blank=True, null=True, default='default.jpg')
     year_of_admission = models.IntegerField(choices=[(year, year) for year in range(2017, datetime.date.today().year + 1)], default=2017)
     can_post = models.BooleanField(default=False)
+    accept_log = models.BooleanField(default=False)
     
 
     def __str__(self):
@@ -41,15 +44,21 @@ class Student(models.Model):
             pass
 
     
+
+
 class Moreinfo(models.Model):
-    about_me = models.TextField(blank=True)
-    linkedin = models.URLField(blank=True)
-    whatsapp = models.CharField(max_length=20, blank=True)
-    instagram = models.CharField(max_length=50, blank=True)
-    phone_number = models.CharField(max_length=20, blank=True)
+    student = models.OneToOneField(Student, on_delete=models.CASCADE, primary_key=True)
+    nick_name = models.TextField(blank=True)
+    linkedin_url = models.URLField(blank=True)  # Use URLField instead of CharField for validation
+
+    # Validate phone number using a regular expression
+    phone_regex = RegexValidator(regex=r"^\d{10,15}$", message="Phone number must be 10-15 digits.")
+    phone_number = models.CharField(validators=[phone_regex], max_length=15, blank=True)
+
+    instagram_handle = models.CharField(max_length=50, blank=True)  # Use "handle" for clarity
 
     def __str__(self):
-        return self.phone_number
+        return f"{self.student.user.username}'s More Info"  # More informative string representation
 
 class Event(models.Model):
     title = models.CharField(max_length=100)
@@ -92,24 +101,3 @@ class EventImages(models.Model):
 
         except FileNotFoundError:  # Handle potential file not found errors
             pass
-
-class Comment(models.Model):
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    comment_text = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-# def create_user(email, password):
-#     user = User.objects.create_user(username=email, email=email, password=password)
-#     user.save()
-#     return user
-
-# def create_student_profile(user, data):
-#     student = Student.objects.create(
-#         user=user,
-#         first_name=data['first_name'],
-#         last_name=data['last_name'],
-#         # ... other fields ...
-#     )
-#     return student

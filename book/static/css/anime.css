@@ -18,6 +18,7 @@ li a:hover,
   -ms-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
   background-color: rgba(0, 0, 0, 0.15);
   color: white;
+  border-radius: 20px;
 
   /* jump */
   animation: rubberBand 1s ease-in-out; /* Adjust the duration as needed */

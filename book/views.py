@@ -14,6 +14,9 @@ from django.contrib import messages
 from .forms import StudentUpdateForm
 
 current_year = datetime.date.today().year
+message=[]
+
+
 
 @lr
 def profile_view(request):
@@ -21,8 +24,8 @@ def profile_view(request):
         s_form = StudentUpdateForm(request.POST, request.FILES, instance=request.user.student)
         if s_form.is_valid():
             student = s_form.save()  # Update the existing student object
-            messages.success(request, f'Your account has been updated!')
-            return redirect('home')
+            message.append('Wait to be accepted into the system you would recievce an Email shortly')
+            return redirect('message')
     else:
         s_form = StudentUpdateForm(instance=request.user.student)
     context = {'s_form': s_form}
@@ -74,8 +77,11 @@ def login_view(request):
                 user = authenticate(username=user.username, password=password)
 
                 if user is not None:
-                    login(request, user)
-                    return redirect('home')  # Redirect to the home page after login
+                    if user.student.accept_log is True:
+                        login(request, user)
+                        return redirect('home')  # Redirect to the home page after login
+                    else:
+                        errors.append("WAIT TO BE ACCEPTED")
                 else:
                     errors.append("Invalid email or password.")
             except User.DoesNotExist:
@@ -121,11 +127,6 @@ def logout_view(request):
 def year_view(request, year=None):
     yeas = [yea for yea in range(2017, current_year + 1)]  # List of years
 
-
-
-
-
-
     if year is None:
         # Set default year to the current year
         year = datetime.date.today().year
@@ -140,5 +141,41 @@ def year_view(request, year=None):
     # Filter students based on the requested year
     students = Student.objects.filter(year_of_admission=year)
 
-    context = {'students': students, 'requested_year': year, 'yeas': yeas}
+    context = {'students': students, 'requested_year': year, 'yeas': yeas,'current_year':current_year}
     return render(request, 'year.html', context)
+
+def event_view(request, year=None):
+    yeas = [yea for yea in range(2017, current_year + 1)]  # List of years
+
+
+    if year is None:
+        # Set default year to the current year
+        year = datetime.date.today().year
+
+    try:
+        # Convert year from URL to integer (handle potential errors)
+        year = int(year)
+    except ValueError:
+        # Display error message if year is not an integer
+        return render(request, 'error.html', {'error_message': 'Invalid year provided.'})
+
+    students = Student.objects.filter(year_of_admission=year)
+    events = Event.objects.filter(event_year=year)
+    event_data = [(event, EventImage.objects.filter(event=event)) for event in events]
+
+    context = {'students': students, 'requested_year': year, 'yeas': yeas, "event_data": event_data, 'current_year':current_year}
+    return render(request, 'event.html', context)
+
+def message_view(request):
+        context = {'message':message}
+        return render(request, 'message.html', context)
+
+def about_us_view(request):
+        
+        context = { 'current_year':current_year}
+        return render(request, 'about_us.html', context)
+
+def detail_view(request):
+        
+        context = { 'current_year':current_year}
+        return render(request, 'detail.html', context)

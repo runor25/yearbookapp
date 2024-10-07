@@ -12,16 +12,14 @@
           </div>
           <ul class="ul">
             <li><a href="{% url 'year' current_year %}">years</a></li>
-            <li><a href="event.html">recent event</a></li>
-            <li><a href="about_us.html">contact us</a></li>
-            <!-- <li><a href="search.html">search</a></li> -->
+            <li><a href="{% url  'event' current_year %}">recent event</a></li>
+            <li><a href="{% url 'about_us' %}">contact us</a></li>
           </ul>
-          <a href="{% url 'login' %}">
             <div class="icons-con" id="icons-con">
-              {% comment %} <i class="zmdi zmdi-search"></i> {% endcomment %}
+          <a href="{% url 'login' %}">
               <i class="zmdi zmdi-account"></i>
-            </div>
           </a>
+            </div>
           <div class="menu"><i class="fa-solid fa-ellipsis"></i></div>
         </div>
       </div>
@@ -54,7 +52,6 @@
           </div>
           <div class="break-side"></div>
         </div>
-        #
 
         <div class="post box99">
           {% for event, images in event_data %}
@@ -73,6 +70,7 @@
         </div>
       </div>
     </div>
+    {% include "footer.html" %}
     <script src="{% static "css/main.js" %}"></script>
   </body>
 </html>

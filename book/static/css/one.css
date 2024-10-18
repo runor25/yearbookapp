@@ -27,6 +27,7 @@ body {
 
 .color-light {
   color: rgb(250, 232, 235);
+  text-transform: uppercase;
 }
 .color-blue {
   color: blue;
@@ -277,6 +278,8 @@ hr {
   padding-bottom: 3px;
   border-bottom-left-radius: 10px;
   width: 100%;
+  text-transform: uppercase;
+  color: #000000;
 }
 .box97 img {
   max-width: 100%;
@@ -423,4 +426,7 @@ li {
 }
 .details-left-con {
   margin-top: 10px;
+}
+.data {
+  text-transform: lowercase;
 }

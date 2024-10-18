@@ -13,10 +13,10 @@
             <a href="" class="logo">Ubook.</a>
           </div>
           <ul class="ul">
-            <li><a href="{% url 'year'  user.student.year_of_admission  %}">years</a></li>
-            <li><a href="event.html">recent event</a></li>
+            <li><a href="{% if request.user.is_authenticated %}{% url 'event'  user.student.year_of_admission  %}{% else %}{% url 'event' current_year  %}{% endif %}">events</a></li>
+            <li><a href="{% if request.user.is_authenticated %}{% url 'year'  user.student.year_of_admission  %}{% else %}{% url 'year' current_year  %}{% endif %}">years</a></li>
+            {% if request.user.is_authenticated %}<li><a href="{% url 'fprofile' %}">profile</a></li>{% endif %}
             <li><a href="{% url 'about_us' %}">contact us</a></li>
-            <!-- <li><a href="search.html">search</a></li> -->
           </ul>
           <div class="icons-con" id="icons-con">
             {% comment %} <i class="zmdi zmdi-search"></i> {% endcomment %}
@@ -47,10 +47,11 @@
 
         <div class="post box99">
           {% for student in students %}
-          <div class="user-co">
+          <a href="{% url 'detail' student.pk %}"><div class="user-co">
             <div ><img src="{{ student.profile_picture.url }}" alt="Profile picture" class="user-im box-dark"></div>
             <div class="user-nam">{{ student.first_name }} {{ student.last_name }}</div>
           </div>
+        </a>
     {% endfor %}
         </div>
 
@@ -71,8 +72,7 @@
                       <img src="{{ image.image.url }}" />
                   {% endfor %}
               </div>
-              <div class="post-txt">{{ event.title }}
-                  <p>{{ event.description }} <b>event</b></p>
+              <div class="post-txt"><h1>{{ event.title }}</h1>
               </div>
           </div>
           {% endfor %}

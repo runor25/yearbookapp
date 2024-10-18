@@ -15,6 +15,7 @@
                                         <li><a href="{% if request.user.is_authenticated %}{% url 'home'  %}{% else %}{% url 'main'  %}{% endif %}">home</a></li>
                                         <li><a href="{% if request.user.is_authenticated %}{% url 'event'  user.student.year_of_admission  %}{% else %}{% url 'event' current_year  %}{% endif %}">events</a></li>
                                         <li><a href="{% if request.user.is_authenticated %}{% url 'year'  user.student.year_of_admission  %}{% else %}{% url 'year' current_year  %}{% endif %}">years</a></li>
+                                        {% if request.user.is_authenticated %}<li><a href="{% url 'fprofile' %}">profile</a></li>{% endif %}
                                         <li><a href="{% url 'about_us' %}">contact us</a></li>
                                       </ul>
 

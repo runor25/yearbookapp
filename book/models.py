@@ -14,6 +14,14 @@ class Student(models.Model):
     last_name = models.CharField(max_length=50, blank=True)
     profile_picture = models.ImageField(upload_to='profile_pics', blank=True, null=True, default='default.jpg')
     year_of_admission = models.IntegerField(choices=[(year, year) for year in range(2017, datetime.date.today().year + 1)], default=2017)
+    nick_name = models.CharField(max_length=50,blank=True)
+    linkedin_url = models.URLField(blank=True)  # Use URLField instead of CharField for validation
+
+    # Validate phone number using a regular expression
+    phone_regex = RegexValidator(regex=r"^\d{10,15}$", message="Phone number must be 10-15 digits.")
+    phone_number = models.CharField(validators=[phone_regex], max_length=15, blank=True)
+
+    instagram_handle = models.CharField(max_length=50, blank=True)  # Use "handle" for clarity
     can_post = models.BooleanField(default=False)
     accept_log = models.BooleanField(default=False)
     
@@ -45,20 +53,6 @@ class Student(models.Model):
 
     
 
-
-class Moreinfo(models.Model):
-    student = models.OneToOneField(Student, on_delete=models.CASCADE, primary_key=True)
-    nick_name = models.TextField(blank=True)
-    linkedin_url = models.URLField(blank=True)  # Use URLField instead of CharField for validation
-
-    # Validate phone number using a regular expression
-    phone_regex = RegexValidator(regex=r"^\d{10,15}$", message="Phone number must be 10-15 digits.")
-    phone_number = models.CharField(validators=[phone_regex], max_length=15, blank=True)
-
-    instagram_handle = models.CharField(max_length=50, blank=True)  # Use "handle" for clarity
-
-    def __str__(self):
-        return f"{self.student.user.username}'s More Info"  # More informative string representation
 
 class Event(models.Model):
     title = models.CharField(max_length=100)

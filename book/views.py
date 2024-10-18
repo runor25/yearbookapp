@@ -4,7 +4,7 @@ from django.contrib.auth.models import User  # Or your custom user model
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required as lr
-from .forms import StudentUpdateForm
+from .forms import StudentUpdateForm, fullStudentUpdateForm
 #from django.contrib.auth.models
 #from django.contrib.auth.forms import AuthenticationForm   
 import datetime
@@ -31,6 +31,19 @@ def profile_view(request):
     context = {'s_form': s_form}
     return render(request, 'profile.html', context)
 
+@lr
+def full_profile_view(request):
+    if request.method == 'POST':
+        s_form = fullStudentUpdateForm(request.POST, request.FILES, instance=request.user.student)
+        if s_form.is_valid():
+            student = s_form.save()  # Update the existing student object
+            message.append('profile updated')
+            return redirect('fprofile')
+    else:
+        s_form = fullStudentUpdateForm(instance=request.user.student)
+    context = {'s_form': s_form, 'error':message}
+    return render(request, 'fprofile.html', context)
+
 def main_view(request):
     year=current_year
     try:
@@ -53,7 +66,6 @@ def home_view(request):
         return render(request, 'my_page.html', context)
     except Event.DoesNotExist:
         return render(request, "404.html")
-
 
 
 def login_view(request):
@@ -175,7 +187,26 @@ def about_us_view(request):
         context = { 'current_year':current_year}
         return render(request, 'about_us.html', context)
 
-def detail_view(request):
-        
-        context = { 'current_year':current_year}
-        return render(request, 'detail.html', context)
+from django.shortcuts import render, get_object_or_404
+from datetime import datetime
+from .models import Student
+
+def detail_view(request, pk=None):
+    try:
+        pk = int(pk)
+    except (TypeError, ValueError):
+        return render(request, 'error.html', {'message': 'Invalid student ID'})
+    
+    # Fetch the student object, return 404 if not found
+    student_info = get_object_or_404(Student, pk=pk)
+    use = get_object_or_404(User, student=student_info)
+
+
+    # Prepare the context with student data and current year
+    context = {
+        'student': student_info,
+        'current_year': current_year,
+        'use':use,
+    }
+    
+    return render(request, 'detail.html', context)
